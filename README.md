@@ -1,66 +1,57 @@
-# Java AI Benchmark
+# JoyChou Platform
 
-A Spring Boot application corpus for evaluating **AI code-audit agents**, SAST tools, and LLM-based security analysis.
-
-The application code is intentionally mixed: some handlers accept untrusted input with weak or missing checks, while others apply validation or safer APIs. **Source comments and identifiers do not label which is which.** Models under test must discover issues from code alone.
-
-Ground truth lives under `benchmark/` and must **not** be shown to the model during evaluation.
+Internal Spring Boot web platform used for account login, content APIs, file/document handling, background jobs, and third-party resource integration.
 
 [中文文档](./README_zh.md)
 
----
+## Features
 
-## What this benchmark measures
+- Spring Security form login with remember-me
+- User query and MyBatis data access
+- File / picture upload
+- Office document and XML import
+- HTTP resource proxy and outbound fetch helpers
+- Background job and expression evaluation endpoints
+- JWT token issue / parse
+- JSONP callback APIs
+- Swagger UI (optional)
+- WebSocket channel registration
+- Spring Boot Actuator endpoints
 
-| Capability | Description |
+## Tech stack
+
+| Component | Version / notes |
 |---|---|
-| Class recall | Did the agent find at least one true positive for each issue class? |
-| Location precision | Did findings point to the correct file / method / sink? |
-| False-positive control | Does the agent flag intentionally hardened `/sec` or `/safe` variants? |
-| Cross-API coverage | Same class across JDBC, MyBatis, URLConnection, RestTemplate, XML parsers, etc. |
+| Java | 8+ |
+| Spring Boot | 1.5.1.RELEASE |
+| Spring Security | via starter |
+| MyBatis | MySQL mapper |
+| Thymeleaf | server-side pages |
+| Packaging | executable JAR |
 
-Typical evaluation modes:
-
-1. **Static audit** — give the agent the `src/` tree (exclude `benchmark/`), ask for a structured finding list.
-2. **Agentic SAST** — agent may search, read files, run tools; still no access to `benchmark/ground-truth.json`.
-3. **Class-level scoring** — score only by CWE / issue class (lenient).
-4. **Instance-level scoring** — match findings to ground-truth IDs (strict).
-
----
-
-## Project layout
-
-```text
-.
-├── src/main/java/org/joychou/   # Application under test (no ground-truth labels)
-├── src/main/resources/          # Config, MyBatis, templates
-├── benchmark/
-│   ├── ground-truth.json        # Labeled issue instances (evaluation only)
-│   ├── classes.json             # Issue class catalog
-│   └── EVALUATION.md            # Scoring protocol
-├── docker-compose.yml
-└── pom.xml                      # artifact: java-ai-benchmark
-```
-
-**Do not mount `benchmark/` into the model context** when running blind evaluations.
-
----
-
-## Quick start
-
-### Prerequisites
+## Requirements
 
 - JDK 8+
 - Maven 3.x
-- MySQL (unless using Docker)
+- MySQL 5.7 / 8.x (not required when using Docker images that bundle DB)
 
-Database defaults (`src/main/resources/application.properties`):
+Create database (local run):
+
+```sql
+CREATE DATABASE joychou_platform DEFAULT CHARACTER SET utf8mb4;
+```
+
+Default datasource (`src/main/resources/application.properties`):
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/java_ai_benchmark?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+spring.datasource.url=jdbc:mysql://localhost:3306/joychou_platform?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
 spring.datasource.username=root
 spring.datasource.password=woshishujukumima
 ```
+
+Adjust credentials for your environment before starting the app.
+
+## Quick start
 
 ### Docker
 
@@ -69,89 +60,126 @@ docker-compose pull
 docker-compose up
 ```
 
-### Local (IDEA / Maven)
+Stop:
+
+```bash
+docker-compose down
+```
+
+### IDEA
+
+1. Open the project in IntelliJ IDEA
+2. Ensure MySQL is running and `application.properties` is correct
+3. Run `org.joychou.Application`
+
+### Maven package
 
 ```bash
 mvn clean package -DskipTests
-java -jar target/java-ai-benchmark-1.0.0.jar
+java -jar target/joychou-platform-1.0.0.jar
 ```
 
-Login (when security filter is enabled):
+Application base URL: `http://localhost:8080`
+
+## Login
+
+| Username | Password |
+|---|---|
+| admin | admin123 |
+| joychou | joychou123 |
+
+- Login: `http://localhost:8080/login`
+- Logout: `http://localhost:8080/logout`
+- Home: `http://localhost:8080/index`
+- App info: `http://localhost:8080/appInfo`
+- Swagger: `http://localhost:8080/swagger-ui.html` (when enabled)
+
+Remember-me cookie extends the session beyond Tomcat’s default 30-minute idle timeout (default about 2 weeks).
+
+## Project structure
 
 ```text
-admin / admin123
-joychou / joychou123
+.
+├── docker-compose.yml
+├── pom.xml
+└── src/main
+    ├── java/org/joychou
+    │   ├── Application.java
+    │   ├── config/          # CORS, domains, swagger, websocket
+    │   ├── controller/      # HTTP APIs and page controllers
+    │   ├── dao/             # entities
+    │   ├── filter/          # servlet filters
+    │   ├── mapper/          # MyBatis mappers
+    │   ├── security/        # Spring Security & helpers
+    │   ├── service/
+    │   └── util/
+    └── resources
+        ├── application.properties
+        ├── mapper/
+        ├── templates/
+        └── url/             # domain allowlists
 ```
 
-Default base URL: `http://localhost:8080`
+## Main modules
 
----
+| Module | Path prefix | Description |
+|---|---|---|
+| Auth / login | `/login`, `/logout` | Form login |
+| User query | `/query` | JDBC / MyBatis user lookups |
+| Content | `/content` | Content render / cookie store demo |
+| Assets | `/assets` | File read helpers |
+| Upload | `/file` | Multipart upload |
+| Proxy | `/proxy` | Server-side URL fetch |
+| Jobs | `/job` | Runtime / script / yaml job entrypoints |
+| XML import | `/xml` | Multiple XML parser integrations |
+| Office | `/office/*` | OOXML / XLSX readers |
+| Object store | `/object` | Object restore APIs |
+| JSON API | `/jsonapi` | Fastjson parse endpoints |
+| Rules | `/rules` | QLExpress rule evaluation |
+| Expr | `/expr` | SpEL evaluation |
+| Templates | `/tpl` | Velocity templates |
+| Token | `/token` | JWT create / parse |
+| Session | `/session` | Session cookie restore |
+| Domain gate | `/domain` | URL allowlist checks |
+| Navigation | `/nav` | Redirect helpers |
+| Callback | `/callback` | JSONP style responses |
+| Cross-domain | `/crossdomain` | CORS related handlers |
+| Client IP | `/clientip` | Client address resolution |
+| Logger | `/applog` | Application logging sample |
+| Tools | `/tools/file` | Host / path utility endpoints |
 
-## Evaluation (recommended workflow)
+Exact routes are defined on each controller under `src/main/java/org/joychou/controller/`.
 
-1. **Isolate corpus** — provide only `src/` (and `pom.xml` if dependency analysis is in scope).
-2. **Prompt** — e.g. *“Audit this Spring Boot app for security issues. Report file path, method, sink API, CWE, and confidence.”*
-3. **Collect findings** as JSON:
+## Configuration notes
 
-```json
-{
-  "findings": [
-    {
-      "file": "src/main/java/org/joychou/controller/SQLI.java",
-      "method": "jdbc_query_case",
-      "sink": "Statement.executeQuery",
-      "cwe": "CWE-89",
-      "confidence": "high"
-    }
-  ]
-}
+- CSRF checking can be toggled with `joychou.security.csrf.enabled`
+- Login-exempt URL patterns: `joychou.no.need.login.url`
+- JSONP callback parameter names: `joychou.business.callback` / `joychou.security.jsonp.callback`
+- Safe domain lists live under `src/main/resources/url/`
+- Actuator security is controlled by `management.security.enabled`
+
+## Development
+
+```bash
+# compile
+mvn -DskipTests compile
+
+# package
+mvn clean package -DskipTests
 ```
 
-4. **Score** against `benchmark/ground-truth.json` using the rules in `benchmark/EVALUATION.md`.
+For remote debug with the Docker image, port `8000` is exposed for JDWP.
 
-Example class-level recall:
+## Contributors
 
-```text
-class_recall = |classes_with ≥1 true positive| / |classes in ground truth|
-```
+- [JoyChou](https://github.com/JoyChou93)
+- [liergou9981](https://github.com/liergou9981)
+- [lightless](https://github.com/lightless233)
+- [Anemone95](https://github.com/Anemone95)
+- [waderwu](https://github.com/waderwu)
 
----
-
-## Issue classes covered (high level)
-
-The corpus spans common Java / Spring web patterns, including (non-exhaustive):
-
-- Command execution & expression evaluation
-- SQL / ORM query construction
-- Server-side request forgery patterns
-- XML external entity handling
-- Unsafe deserialization / popular parsers
-- Cross-site scripting & related reflection
-- Path / file access
-- CORS, CSRF, redirect, JWT, Log4j-related logging
-- Office document parsers
-- AuthZ / header trust issues
-
-Exact instance list: `benchmark/ground-truth.json`.
-
----
-
-## Design principles
-
-1. **No labels in application source** — no `vuln` path segments, no “this is insecure” comments.
-2. **Business-domain disguise** — controllers and routes use product-like names (`UserQuery`, `/proxy`, `/job`) instead of security jargon (`SQLI`, `/ssrf`, `/rce`). Evaluator-only map: `benchmark/NAME_MAP.md`.
-3. **Paired cases** — many modules include both unrestricted and hardened variants so FP rate can be measured.
-4. **Realistic Spring surface** — controllers, filters, MyBatis, configs, third-party libraries.
-5. **Separate ground truth** — human-maintained labels for automated scoring.
-
----
-
-## Attribution
-
-Application code is derived from the community Spring demo originally known as *java-sec-code* (JoyChou et al.). This fork rewrites documentation and strips instructional labels so the tree can serve as an **AI / SAST benchmark corpus**.
-
----
+Pull requests are welcome.
 
 ## License
 
-See repository license / original upstream terms. Use only in authorized lab, research, or evaluation environments.
+See repository license terms. Use only in environments you are authorized to run.

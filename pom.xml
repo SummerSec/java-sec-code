@@ -4,9 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.benchmark</groupId>
-    <artifactId>java-ai-benchmark</artifactId>
+    <groupId>org.joychou</groupId>
+    <artifactId>joychou-platform</artifactId>
     <version>1.0.0</version>
+    <name>JoyChou Platform</name>
+    <description>Internal Spring Boot web platform</description>
     <packaging>jar</packaging>
 
     <properties>
