@@ -48,7 +48,6 @@ public class Object2Jsonp extends AbstractJsonpResponseBodyAdvice {
         HttpServletResponse response = ((ServletServerHttpResponse)res).getServletResponse();
 
         String realJsonpFunc = getRealJsonpFunc(request);
-        // 如果url带callback，且校验不安全后
         if ( StringUtils.isNotBlank(realJsonpFunc) ) {
             jsonpReferHandler(request, response);
         }
@@ -82,7 +81,6 @@ public class Object2Jsonp extends AbstractJsonpResponseBodyAdvice {
             return;
         }
 
-        // 校验jsonp逻辑，如果不安全，返回forbidden
         if (SecurityUtil.checkURL(refer) == null ){
             logger.error("[-] URL: " + url + "?" + query + "\t" + "Referer: " + refer);
             try{

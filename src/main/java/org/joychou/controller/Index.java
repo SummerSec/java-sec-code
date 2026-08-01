@@ -30,9 +30,9 @@ public class Index {
         m.put("tomcat_version", ServerInfo.getServerInfo());
         m.put("username", username);
         m.put("login", "success");
-        m.put("app_name", "java security code");
+        m.put("app_name", "java-ai-benchmark");
         m.put("java_version", System.getProperty("java.version"));
-        m.put("fastjson_version", JSON.VERSION);
+        m.put("json_lib_version", JSON.VERSION);
 
         // covert map to string
         return JSON.toJSONString(m);

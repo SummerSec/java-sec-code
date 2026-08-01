@@ -69,57 +69,56 @@ public class SafeDomainParser {
         logger.info(safeDomains.toString());
         wc.setBlockDomains(blockDomains);
 
-        // 解析SSRF配置
-        String ssrfRootTag = "ssrfsafeconfig";
-        String ssrfSafeDomainTag = "safedomains";
-        String ssrfBlockDomainTag = "blockdomains";
-        String ssrfBlockIpsTag = "blockips";
-        String ssrfFinalTag = "domain";
-        String ssrfIpFinalTag = "ip";
-        String ssrfSafeDomainClassPath = "url" + File.separator + "ssrf_safe_domain.xml";
+        // parse url allowlist config
+        String urlRootTag = "urlsafeconfig";
+        String urlSafeDomainTag = "safedomains";
+        String urlBlockDomainTag = "blockdomains";
+        String urlBlockIpsTag = "blockips";
+        String urlFinalTag = "domain";
+        String urlIpFinalTag = "ip";
+        String urlSafeDomainClassPath = "url" + File.separator + "url_safe_domain.xml";
 
-        ArrayList<String> ssrfSafeDomains = new ArrayList<>();
-        ArrayList<String> ssrfBlockDomains = new ArrayList<>();
-        ArrayList<String> ssrfBlockIps = new ArrayList<>();
+        ArrayList<String> urlSafeDomains = new ArrayList<>();
+        ArrayList<String> urlBlockDomains = new ArrayList<>();
+        ArrayList<String> urlBlockIps = new ArrayList<>();
 
         try {
             // 读取resources目录下的文件
-            ClassPathResource resource = new ClassPathResource(ssrfSafeDomainClassPath);
+            ClassPathResource resource = new ClassPathResource(urlSafeDomainClassPath);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
-            // 修复打包成jar包运行，不能读取文件的bug
             Document doc = db.parse(resource.getInputStream());  // parse xml
 
-            NodeList rootNode = doc.getElementsByTagName(ssrfRootTag);  // 解析根节点
+            NodeList rootNode = doc.getElementsByTagName(urlRootTag);  // 解析根节点
             Node domainsNode = rootNode.item(0);
             NodeList child = domainsNode.getChildNodes();
 
             for (int i = 0; i < child.getLength(); i++) {
                 Node node = child.item(i);
                 // 解析safeDomains节点
-                if (node.getNodeName().equals(ssrfSafeDomainTag)) {
+                if (node.getNodeName().equals(urlSafeDomainTag)) {
                     NodeList tagChild = node.getChildNodes();
                     for (int j = 0; j < tagChild.getLength(); j++) {
                         Node tagFinalNode = tagChild.item(j);
-                        if (tagFinalNode.getNodeName().equals(ssrfFinalTag)) {
-                            ssrfSafeDomains.add(tagFinalNode.getTextContent());
+                        if (tagFinalNode.getNodeName().equals(urlFinalTag)) {
+                            urlSafeDomains.add(tagFinalNode.getTextContent());
                         }
                     }
-                } else if (node.getNodeName().equals(ssrfBlockDomainTag)) {
+                } else if (node.getNodeName().equals(urlBlockDomainTag)) {
                     NodeList tagChild = node.getChildNodes();
                     for (int j = 0; j < tagChild.getLength(); j++) {
                         Node tagFinalNode = tagChild.item(j);
-                        if (tagFinalNode.getNodeName().equals(ssrfFinalTag)) {
-                            ssrfBlockDomains.add(tagFinalNode.getTextContent());
+                        if (tagFinalNode.getNodeName().equals(urlFinalTag)) {
+                            urlBlockDomains.add(tagFinalNode.getTextContent());
                         }
                     }
-                } else if (node.getNodeName().equals(ssrfBlockIpsTag)) {
+                } else if (node.getNodeName().equals(urlBlockIpsTag)) {
                     NodeList tagChild = node.getChildNodes();
                     for (int j = 0; j < tagChild.getLength(); j++) {
                         Node tagFinalNode = tagChild.item(j);
                         // 解析 blockIps 节点里的 ip 节点
-                        if (tagFinalNode.getNodeName().equals(ssrfIpFinalTag)) {
-                            ssrfBlockIps.add(tagFinalNode.getTextContent());
+                        if (tagFinalNode.getNodeName().equals(urlIpFinalTag)) {
+                            urlBlockIps.add(tagFinalNode.getTextContent());
                         }
                     }
                 }
@@ -128,10 +127,10 @@ public class SafeDomainParser {
             logger.error(e.toString());
         }
 
-        logger.info(ssrfBlockIps.toString());
-        wc.setSsrfBlockDomains(ssrfBlockDomains);
-        wc.setSsrfBlockIps(ssrfBlockIps);
-        wc.setSsrfSafeDomains(ssrfSafeDomains);
+        logger.info(urlBlockIps.toString());
+        wc.setUrlBlockDomains(urlBlockDomains);
+        wc.setUrlBlockIps(urlBlockIps);
+        wc.setUrlSafeDomains(urlSafeDomains);
     }
 }
 

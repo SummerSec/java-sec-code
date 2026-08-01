@@ -9,7 +9,7 @@
 //
 //// https://spring.io/blog/2015/06/08/cors-support-in-spring-framework
 //@Configuration
-//public class CorsConfig2 {
+//public class CrossDomainConfig2 {
 //
 //    @Bean
 //    public FilterRegistrationBean corsFilter() {
@@ -21,7 +21,7 @@
 //        config.addAllowedHeader("*");
 //        config.addAllowedMethod("GET");
 //        config.addAllowedMethod("POST");
-//        source.registerCorsConfiguration("/cors/getCsrfToken/sec_03", config);
+//        source.registerCorsConfiguration("/crossdomain/getCsrfToken/sec_03", config);
 //        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 //        bean.setOrder(0);
 //        return bean;

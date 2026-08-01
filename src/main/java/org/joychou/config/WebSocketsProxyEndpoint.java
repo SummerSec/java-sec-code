@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-public class WebSocketsProxyEndpoint extends Endpoint {
+public class RealtimeChannelProxyEndpoint extends Endpoint {
     long i = 0;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     HashMap<String, AsynchronousSocketChannel> map = new HashMap<String, AsynchronousSocketChannel>();

@@ -75,7 +75,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // spring security login settings
         http.authorizeRequests()
                 .antMatchers(noNeedLoginUrl).permitAll() // no need to login page
-                // CVE-2022-22978漏洞代码
                 .regexMatchers("/black_path.*").denyAll()    // 如果正则匹配到/black_path，则forbidden
                 .anyRequest().authenticated().and() // any request authenticated except above static resources
                 .formLogin().loginPage("/login").permitAll() // permit all to access /login page
@@ -102,7 +101,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowCredentials(true);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/cors/sec/httpCors", configuration); // ant style
+        source.registerCorsConfiguration("/crossdomain/sec/httpCors", configuration); // ant style
         return source;
     }
 

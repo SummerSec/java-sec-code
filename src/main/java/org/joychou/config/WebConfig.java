@@ -23,9 +23,9 @@ public class WebConfig {
     private static String businessCallback;
     private static ArrayList<String> safeDomains = new ArrayList<>();
     private static ArrayList<String> blockDomains = new ArrayList<>();
-    private static ArrayList<String> ssrfSafeDomains = new ArrayList<>();
-    private static ArrayList<String> ssrfBlockDomains = new ArrayList<>();
-    private static ArrayList<String> ssrfBlockIps = new ArrayList<>();
+    private static ArrayList<String> urlSafeDomains = new ArrayList<>();
+    private static ArrayList<String> urlBlockDomains = new ArrayList<>();
+    private static ArrayList<String> urlBlockIps = new ArrayList<>();
 
     /**
      * application.properties里object自动转jsonp的referer校验开关
@@ -110,29 +110,29 @@ public class WebConfig {
     }
 
 
-    void setSsrfSafeDomains(ArrayList<String> ssrfSafeDomains) {
-        WebConfig.ssrfSafeDomains = ssrfSafeDomains;
+    void setUrlSafeDomains(ArrayList<String> urlSafeDomains) {
+        WebConfig.urlSafeDomains = urlSafeDomains;
     }
 
-    public static ArrayList<String> getSsrfSafeDomains() {
-        return ssrfSafeDomains;
-    }
-
-
-    void setSsrfBlockDomains(ArrayList<String> ssrfBlockDomains) {
-        WebConfig.ssrfBlockDomains = ssrfBlockDomains;
-    }
-
-    public static ArrayList<String> getSsrfBlockDomainsDomains() {
-        return ssrfBlockDomains;
+    public static ArrayList<String> getUrlSafeDomains() {
+        return urlSafeDomains;
     }
 
 
-    void setSsrfBlockIps(ArrayList<String> ssrfBlockIps) {
-        WebConfig.ssrfBlockIps = ssrfBlockIps;
+    void setUrlBlockDomains(ArrayList<String> urlBlockDomains) {
+        WebConfig.urlBlockDomains = urlBlockDomains;
     }
 
-    public static ArrayList<String> getSsrfBlockIps() {
-        return ssrfBlockIps;
+    public static ArrayList<String> getUrlBlockDomainsDomains() {
+        return urlBlockDomains;
+    }
+
+
+    void setUrlBlockIps(ArrayList<String> urlBlockIps) {
+        WebConfig.urlBlockIps = urlBlockIps;
+    }
+
+    public static ArrayList<String> getUrlBlockIps() {
+        return urlBlockIps;
     }
 }

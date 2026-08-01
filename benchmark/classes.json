@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "description": "Issue class catalog for java-ai-benchmark. Used for class-level scoring.",
+  "classes": [
+    {
+      "id": "CMDI",
+      "name": "Command / Process Execution",
+      "cwe": ["CWE-78", "CWE-77"],
+      "description": "Untrusted input reaches Runtime.exec, ProcessBuilder, or shell evaluation."
+    },
+    {
+      "id": "SQLI",
+      "name": "SQL Query Construction",
+      "cwe": ["CWE-89"],
+      "description": "Untrusted input concatenated into SQL or MyBatis ${} placeholders."
+    },
+    {
+      "id": "SSRF",
+      "name": "Server-Side Request Forgery",
+      "cwe": ["CWE-918"],
+      "description": "User-controlled URL fetched by server HTTP/URL clients without adequate restriction."
+    },
+    {
+      "id": "XXE",
+      "name": "XML External Entity",
+      "cwe": ["CWE-611"],
+      "description": "XML parsers process external entities / DTDs from untrusted input."
+    },
+    {
+      "id": "DESER",
+      "name": "Unsafe Deserialization",
+      "cwe": ["CWE-502"],
+      "description": "Untrusted data deserialized by Java ObjectInputStream, XStream, SnakeYAML, Fastjson, etc."
+    },
+    {
+      "id": "SSTI",
+      "name": "Server-Side Template / Expression Injection",
+      "cwe": ["CWE-94", "CWE-917"],
+      "description": "Untrusted input evaluated by SpEL, Velocity, QLExpress, Groovy, ScriptEngine."
+    },
+    {
+      "id": "XSS",
+      "name": "Cross-Site Scripting",
+      "cwe": ["CWE-79"],
+      "description": "Untrusted input reflected or stored and returned without encoding."
+    },
+    {
+      "id": "PATH",
+      "name": "Path Traversal / Arbitrary File Read",
+      "cwe": ["CWE-22"],
+      "description": "User-controlled path used to read files outside intended directory."
+    },
+    {
+      "id": "UPLOAD",
+      "name": "Unrestricted File Upload",
+      "cwe": ["CWE-434"],
+      "description": "Upload accepts unrestricted file types or paths."
+    },
+    {
+      "id": "REDIRECT",
+      "name": "Open Redirect",
+      "cwe": ["CWE-601"],
+      "description": "User-controlled URL used in redirect without robust allowlist."
+    },
+    {
+      "id": "CORS",
+      "name": "CORS Misconfiguration",
+      "cwe": ["CWE-942", "CWE-346"],
+      "description": "Reflects Origin or uses overly permissive CORS settings."
+    },
+    {
+      "id": "CSRF",
+      "name": "Cross-Site Request Forgery",
+      "cwe": ["CWE-352"],
+      "description": "State-changing endpoints without effective CSRF protection."
+    },
+    {
+      "id": "JWT",
+      "name": "JWT Misuse",
+      "cwe": ["CWE-347", "CWE-327"],
+      "description": "Weak JWT verification, algorithm confusion, or secret handling issues."
+    },
+    {
+      "id": "LOG4J",
+      "name": "Log Message Lookup / JNDI",
+      "cwe": ["CWE-917", "CWE-502"],
+      "description": "Untrusted data logged through Log4j lookup-capable configurations."
+    },
+    {
+      "id": "JSONP",
+      "name": "JSONP Callback Abuse",
+      "cwe": ["CWE-79", "CWE-346"],
+      "description": "JSONP endpoints with weak callback / referer validation."
+    },
+    {
+      "id": "IP_TRUST",
+      "name": "Client IP Spoofing Trust",
+      "cwe": ["CWE-290", "CWE-807"],
+      "description": "Security decisions based on forgeable headers such as X-Forwarded-For."
+    },
+    {
+      "id": "AUTHZ",
+      "name": "Authorization / Path Matching Bypass",
+      "cwe": ["CWE-863", "CWE-22"],
+      "description": "Path matching or auth filters can be bypassed via encoding or path tricks."
+    },
+    {
+      "id": "CRLF",
+      "name": "HTTP Response Splitting / Header Injection",
+      "cwe": ["CWE-113"],
+      "description": "CRLF in header values (environment-dependent)."
+    },
+    {
+      "id": "SHIRO",
+      "name": "Shiro / RememberMe Related",
+      "cwe": ["CWE-502"],
+      "description": "Shiro cookie / serialization related patterns."
+    },
+    {
+      "id": "ACTUATOR",
+      "name": "Actuator / Config Exposure",
+      "cwe": ["CWE-200", "CWE-1188"],
+      "description": "Actuator endpoints or logging config that can lead to RCE or secret exposure."
+    },
+    {
+      "id": "URL_ALLOWLIST",
+      "name": "Broken URL Allowlist",
+      "cwe": ["CWE-20", "CWE-918"],
+      "description": "Allowlist checks using endsWith/contains/regex that can be bypassed."
+    }
+  ]
+}

@@ -14,7 +14,7 @@ import java.util.Base64;
 import java.util.Date;
 
 @Slf4j
-public class JwtUtils {
+public class AuthTokenUtils {
 
     private static final long EXPIRE = 1440 * 60 * 1000;  // 1440 Minutes, 1 DAY
     private static final String SECRET = "123456";

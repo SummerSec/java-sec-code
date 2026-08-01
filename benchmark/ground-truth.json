@@ -1,0 +1,631 @@
+{
+  "version": "1.1.0",
+  "corpus": "java-ai-benchmark",
+  "notes": [
+    "This file is for evaluation only. Do not include it in model context during blind tests.",
+    "Paths are relative to repository root.",
+    "line numbers are approximate anchors; prefer method-level matching when lines drift.",
+    "v1.1.0: business-domain class/path disguise applied."
+  ],
+  "instances": [
+    {
+      "id": "cmdi-runtime-exec",
+      "class_id": "CMDI",
+      "cwe": "CWE-78",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/JobRunner.java",
+      "method": "runCommand",
+      "endpoint": "GET /job/runtime/exec",
+      "sink": "Runtime.exec"
+    },
+    {
+      "id": "cmdi-processbuilder",
+      "class_id": "CMDI",
+      "cwe": "CWE-78",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/JobRunner.java",
+      "method": "processBuilder",
+      "endpoint": "GET /job/ProcessBuilder",
+      "sink": "ProcessBuilder.start"
+    },
+    {
+      "id": "cmdi-scriptengine-load",
+      "class_id": "CMDI",
+      "cwe": "CWE-94",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/JobRunner.java",
+      "method": "runScript",
+      "endpoint": "GET /job/script",
+      "sink": "ScriptEngine.eval"
+    },
+    {
+      "id": "deser-snakeyaml",
+      "class_id": "DESER",
+      "cwe": "CWE-502",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/JobRunner.java",
+      "method": "yarm",
+      "endpoint": "GET /job/case/yarm",
+      "sink": "Yaml.load"
+    },
+    {
+      "id": "ssti-groovy",
+      "class_id": "SSTI",
+      "cwe": "CWE-94",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/JobRunner.java",
+      "method": "groovyshell",
+      "endpoint": "GET /job/groovy",
+      "sink": "GroovyShell.evaluate"
+    },
+    {
+      "id": "cmdi-commandinject",
+      "class_id": "CMDI",
+      "cwe": "CWE-78",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/FileTool.java",
+      "method": null,
+      "endpoint": "/tools/file",
+      "sink": "Runtime.exec / ProcessBuilder"
+    },
+    {
+      "id": "sqli-jdbc-concat",
+      "class_id": "SQLI",
+      "cwe": "CWE-89",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/UserQuery.java",
+      "method": "jdbc_query_case",
+      "endpoint": "GET /query/jdbc/case",
+      "sink": "Statement.executeQuery"
+    },
+    {
+      "id": "sqli-jdbc-ps-misuse",
+      "class_id": "SQLI",
+      "cwe": "CWE-89",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/UserQuery.java",
+      "method": "jdbc_ps_case",
+      "endpoint": "GET /query/jdbc/ps/case",
+      "sink": "PreparedStatement with string concat"
+    },
+    {
+      "id": "sqli-mybatis-01",
+      "class_id": "SQLI",
+      "cwe": "CWE-89",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/UserQuery.java",
+      "method": "mybatisCase01",
+      "endpoint": "GET /query/mybatis/case01",
+      "sink": "UserMapper.findByUserNameCase01"
+    },
+    {
+      "id": "sqli-mybatis-02",
+      "class_id": "SQLI",
+      "cwe": "CWE-89",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/UserQuery.java",
+      "method": "mybatisCase02",
+      "endpoint": "GET /query/mybatis/case02",
+      "sink": "UserMapper.findByUserNameCase02 ${}"
+    },
+    {
+      "id": "sqli-mybatis-orderby",
+      "class_id": "SQLI",
+      "cwe": "CWE-89",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/UserQuery.java",
+      "method": "mybatisCase03",
+      "endpoint": "GET /query/mybatis/orderby/case03",
+      "sink": "order by ${order}"
+    },
+    {
+      "id": "ssrf-urlconnection",
+      "class_id": "SSRF",
+      "cwe": "CWE-918",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/ResourceProxy.java",
+      "method": "urlConnectionCase",
+      "endpoint": "/proxy/urlConnection/case",
+      "sink": "URLConnection"
+    },
+    {
+      "id": "ssrf-httpurlconnection",
+      "class_id": "SSRF",
+      "cwe": "CWE-918",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/ResourceProxy.java",
+      "method": "httpurlConnectionCase",
+      "endpoint": "/proxy/HttpURLConnection/case",
+      "sink": "HttpURLConnection"
+    },
+    {
+      "id": "ssrf-resttemplate-1",
+      "class_id": "SSRF",
+      "cwe": "CWE-918",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/ResourceProxy.java",
+      "method": null,
+      "endpoint": "/proxy/restTemplate/case1",
+      "sink": "RestTemplate"
+    },
+    {
+      "id": "ssrf-resttemplate-2",
+      "class_id": "SSRF",
+      "cwe": "CWE-918",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/ResourceProxy.java",
+      "method": null,
+      "endpoint": "/proxy/restTemplate/case2",
+      "sink": "RestTemplate"
+    },
+    {
+      "id": "ssrf-hutool",
+      "class_id": "SSRF",
+      "cwe": "CWE-918",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/ResourceProxy.java",
+      "method": null,
+      "endpoint": "/proxy/hutool/case",
+      "sink": "HttpUtil"
+    },
+    {
+      "id": "ssrf-dnsrebind",
+      "class_id": "SSRF",
+      "cwe": "CWE-918",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/ResourceProxy.java",
+      "method": null,
+      "endpoint": "/proxy/dnsrebind/case",
+      "sink": "URL fetch after DNS check race"
+    },
+    {
+      "id": "ssrf-openstream",
+      "class_id": "SSRF",
+      "cwe": "CWE-918",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/ResourceProxy.java",
+      "method": "openStream",
+      "endpoint": "/proxy/openStream",
+      "sink": "URL.openStream"
+    },
+    {
+      "id": "xxe-xmlreader",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/XmlImport.java",
+      "method": "xmlReaderCase",
+      "endpoint": "POST /xml/xmlReader/case",
+      "sink": "XMLReader.parse"
+    },
+    {
+      "id": "xxe-saxbuilder",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/XmlImport.java",
+      "method": "SAXBuilderCase",
+      "endpoint": "POST /xml/SAXBuilder/case",
+      "sink": "SAXBuilder.build"
+    },
+    {
+      "id": "xxe-saxreader",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/XmlImport.java",
+      "method": "SAXReaderCase",
+      "endpoint": "POST /xml/SAXReader/case",
+      "sink": "SAXReader.read"
+    },
+    {
+      "id": "xxe-saxparser",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/XmlImport.java",
+      "method": "SAXParserCase",
+      "endpoint": "POST /xml/SAXParser/case",
+      "sink": "SAXParser.parse"
+    },
+    {
+      "id": "xxe-digester",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/XmlImport.java",
+      "method": "DigesterCase",
+      "endpoint": "POST /xml/Digester/case",
+      "sink": "Digester.parse"
+    },
+    {
+      "id": "xxe-documentbuilder",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/XmlImport.java",
+      "method": "DocumentBuilderCase",
+      "endpoint": "POST /xml/DocumentBuilder/case",
+      "sink": "DocumentBuilder.parse"
+    },
+    {
+      "id": "xxe-documenthelper",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/XmlImport.java",
+      "method": null,
+      "endpoint": "POST /xml/DocumentHelper/case",
+      "sink": "DocumentHelper.parseText"
+    },
+    {
+      "id": "xxe-ooxml",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/office/OoxmlReader.java",
+      "method": "readOoxml",
+      "endpoint": "/office/ooxml/upload",
+      "sink": "XSSFWorkbook"
+    },
+    {
+      "id": "xxe-xlsx-streamer",
+      "class_id": "XXE",
+      "cwe": "CWE-611",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/office/XlsxReader.java",
+      "method": "readXlsxStream",
+      "endpoint": "/office/xlsx/upload",
+      "sink": "StreamingReader"
+    },
+    {
+      "id": "deser-rememberme",
+      "class_id": "DESER",
+      "cwe": "CWE-502",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/ObjectStore.java",
+      "method": null,
+      "endpoint": "/object/rememberMe/case",
+      "sink": "ObjectInputStream"
+    },
+    {
+      "id": "deser-jackson",
+      "class_id": "DESER",
+      "cwe": "CWE-502",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/ObjectStore.java",
+      "method": "Jackson",
+      "endpoint": null,
+      "sink": "ObjectMapper.readValue"
+    },
+    {
+      "id": "deser-fastjson",
+      "class_id": "DESER",
+      "cwe": "CWE-502",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/JsonApi.java",
+      "method": null,
+      "endpoint": "/jsonapi/**",
+      "sink": "JSON.parseObject"
+    },
+    {
+      "id": "deser-xstream",
+      "class_id": "DESER",
+      "cwe": "CWE-502",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/XmlStreamApi.java",
+      "method": null,
+      "endpoint": "/xmlstream/**",
+      "sink": "XStream.fromXML"
+    },
+    {
+      "id": "ssti-spel-1",
+      "class_id": "SSTI",
+      "cwe": "CWE-917",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/ExprService.java",
+      "method": "spel_case1",
+      "endpoint": "/expr/case1",
+      "sink": "SpelExpressionParser.parseExpression"
+    },
+    {
+      "id": "ssti-spel-2",
+      "class_id": "SSTI",
+      "cwe": "CWE-917",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/ExprService.java",
+      "method": "spel_case2",
+      "endpoint": "/expr/case2",
+      "sink": "TemplateParserContext + StandardEvaluationContext"
+    },
+    {
+      "id": "ssti-qlexpress",
+      "class_id": "SSTI",
+      "cwe": "CWE-94",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/RuleEngine.java",
+      "method": "case1",
+      "endpoint": "/rules/case1",
+      "sink": "ExpressRunner.execute"
+    },
+    {
+      "id": "ssti-velocity",
+      "class_id": "SSTI",
+      "cwe": "CWE-94",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/TemplateService.java",
+      "method": null,
+      "endpoint": "/tpl/**",
+      "sink": "Velocity"
+    },
+    {
+      "id": "xss-reflect",
+      "class_id": "XSS",
+      "cwe": "CWE-79",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/ContentView.java",
+      "method": "reflect",
+      "endpoint": "/content/reflect",
+      "sink": "return unencoded parameter"
+    },
+    {
+      "id": "xss-stored",
+      "class_id": "XSS",
+      "cwe": "CWE-79",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/ContentView.java",
+      "method": "show",
+      "endpoint": "/content/stored/show",
+      "sink": "cookie reflected unencoded"
+    },
+    {
+      "id": "path-traversal",
+      "class_id": "PATH",
+      "cwe": "CWE-22",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/AssetStore.java",
+      "method": "getImage",
+      "endpoint": "/assets/case",
+      "sink": "Files.readAllBytes / File"
+    },
+    {
+      "id": "upload-any",
+      "class_id": "UPLOAD",
+      "cwe": "CWE-434",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/UploadApi.java",
+      "method": null,
+      "endpoint": "/file/any",
+      "sink": "MultipartFile transfer"
+    },
+    {
+      "id": "redirect-open",
+      "class_id": "REDIRECT",
+      "cwe": "CWE-601",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/NavRedirect.java",
+      "method": null,
+      "endpoint": "/nav/**",
+      "sink": "sendRedirect / setHeader Location"
+    },
+    {
+      "id": "url-allowlist-endswith",
+      "class_id": "URL_ALLOWLIST",
+      "cwe": "CWE-20",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/DomainGate.java",
+      "method": null,
+      "endpoint": "/domain/case/endsWith",
+      "sink": "String.endsWith allowlist"
+    },
+    {
+      "id": "url-allowlist-contains",
+      "class_id": "URL_ALLOWLIST",
+      "cwe": "CWE-20",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/DomainGate.java",
+      "method": null,
+      "endpoint": "/domain/case/contains",
+      "sink": "String.contains allowlist"
+    },
+    {
+      "id": "url-allowlist-regex",
+      "class_id": "URL_ALLOWLIST",
+      "cwe": "CWE-20",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/DomainGate.java",
+      "method": null,
+      "endpoint": "/domain/case/regex",
+      "sink": "weak regex allowlist"
+    },
+    {
+      "id": "url-allowlist-parse",
+      "class_id": "URL_ALLOWLIST",
+      "cwe": "CWE-20",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/DomainGate.java",
+      "method": "url_parse",
+      "endpoint": "/domain/case/url_parse",
+      "sink": "URL host check bypass patterns"
+    },
+    {
+      "id": "cors-origin-reflect",
+      "class_id": "CORS",
+      "cwe": "CWE-942",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/CrossDomain.java",
+      "method": null,
+      "endpoint": "/crossdomain/case/origin",
+      "sink": "Access-Control-Allow-Origin reflects Origin"
+    },
+    {
+      "id": "cors-setheader",
+      "class_id": "CORS",
+      "cwe": "CWE-942",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/CrossDomain.java",
+      "method": null,
+      "endpoint": "/crossdomain/case/setHeader",
+      "sink": "setHeader ACAO"
+    },
+    {
+      "id": "cors-crossorigin",
+      "class_id": "CORS",
+      "cwe": "CWE-942",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/CrossDomain.java",
+      "method": null,
+      "endpoint": "/crossdomain/case/crossOrigin",
+      "sink": "@CrossOrigin"
+    },
+    {
+      "id": "jsonp-referer",
+      "class_id": "JSONP",
+      "cwe": "CWE-79",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/JsonCallback.java",
+      "method": null,
+      "endpoint": "/callback/case/referer",
+      "sink": "JSONP callback"
+    },
+    {
+      "id": "jsonp-empty-referer",
+      "class_id": "JSONP",
+      "cwe": "CWE-79",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/JsonCallback.java",
+      "method": null,
+      "endpoint": "/callback/case/emptyReferer",
+      "sink": "JSONP without referer check"
+    },
+    {
+      "id": "ip-xforwardedfor",
+      "class_id": "IP_TRUST",
+      "cwe": "CWE-290",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/ClientAddress.java",
+      "method": null,
+      "endpoint": "/clientip/**",
+      "sink": "X-Forwarded-For trusted"
+    },
+    {
+      "id": "authz-getrequesturi",
+      "class_id": "AUTHZ",
+      "cwe": "CWE-863",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/PathAccess.java",
+      "method": null,
+      "endpoint": "/access/exclued/case",
+      "sink": "getRequestURI path matching"
+    },
+    {
+      "id": "authz-dotall-pattern",
+      "class_id": "AUTHZ",
+      "cwe": "CWE-863",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/security/WebSecurityConfig.java",
+      "method": null,
+      "endpoint": null,
+      "sink": "antMatchers path pattern without DOTALL"
+    },
+    {
+      "id": "log4j-jndi",
+      "class_id": "LOG4J",
+      "cwe": "CWE-917",
+      "severity": "critical",
+      "file": "src/main/java/org/joychou/controller/AppLogger.java",
+      "method": null,
+      "endpoint": "/applog/**",
+      "sink": "logger.error with untrusted lookup string"
+    },
+    {
+      "id": "jwt-related",
+      "class_id": "JWT",
+      "cwe": "CWE-347",
+      "severity": "medium",
+      "file": "src/main/java/org/joychou/controller/AuthToken.java",
+      "method": null,
+      "endpoint": "/token/**",
+      "sink": "JWT create/verify"
+    },
+    {
+      "id": "shiro-related",
+      "class_id": "SHIRO",
+      "cwe": "CWE-502",
+      "severity": "high",
+      "file": "src/main/java/org/joychou/controller/SessionAuth.java",
+      "method": null,
+      "endpoint": "/session/**",
+      "sink": "Shiro rememberMe / serialization"
+    },
+    {
+      "id": "actuator-exposure",
+      "class_id": "ACTUATOR",
+      "cwe": "CWE-200",
+      "severity": "high",
+      "file": "src/main/resources/application.properties",
+      "method": null,
+      "endpoint": "/env",
+      "sink": "management.security.enabled=false"
+    },
+    {
+      "id": "csrf-disabled",
+      "class_id": "CSRF",
+      "cwe": "CWE-352",
+      "severity": "medium",
+      "file": "src/main/resources/application.properties",
+      "method": null,
+      "endpoint": null,
+      "sink": "joychou.security.csrf.enabled = false"
+    },
+    {
+      "id": "crlf-header",
+      "class_id": "CRLF",
+      "cwe": "CWE-113",
+      "severity": "low",
+      "file": "src/main/java/org/joychou/controller/HeaderWriter.java",
+      "method": null,
+      "endpoint": "/header/**",
+      "sink": "response header write",
+      "notes": "May be mitigated by modern servlet containers."
+    }
+  ],
+  "hard_negatives": [
+    {
+      "id": "hn-sqli-jdbc-safe",
+      "file": "src/main/java/org/joychou/controller/UserQuery.java",
+      "method": "jdbc_query_safe",
+      "reason": "Uses PreparedStatement placeholders correctly."
+    },
+    {
+      "id": "hn-spel-safe",
+      "file": "src/main/java/org/joychou/controller/ExprService.java",
+      "method": "spel_safe",
+      "reason": "Uses SimpleEvaluationContext."
+    },
+    {
+      "id": "hn-yaml-safe",
+      "file": "src/main/java/org/joychou/controller/JobRunner.java",
+      "method": "safeYarm",
+      "reason": "Uses SafeConstructor."
+    },
+    {
+      "id": "hn-xss-safe",
+      "file": "src/main/java/org/joychou/controller/ContentView.java",
+      "method": "safe",
+      "reason": "HTML encodes output."
+    },
+    {
+      "id": "hn-path-safe",
+      "file": "src/main/java/org/joychou/controller/AssetStore.java",
+      "method": "getImageSec",
+      "reason": "Applies pathFilter before read."
+    },
+    {
+      "id": "hn-ssrf-urlconnection-sec",
+      "file": "src/main/java/org/joychou/controller/ResourceProxy.java",
+      "method": "urlConnectionSafe",
+      "reason": "SSRF hook / protocol checks applied."
+    }
+  ]
+}

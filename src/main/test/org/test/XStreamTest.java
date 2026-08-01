@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class XStreamTest {
 
-    private static final String poc_xml = "<sorted-set>\n" +
+    private static final String sample_xml = "<sorted-set>\n" +
             "    <string>foo</string>\n" +
             "    <dynamic-proxy>\n" +
             "        <interface>java.lang.Comparable</interface>\n" +
@@ -49,22 +49,20 @@ public class XStreamTest {
      * Command execute
      */
     @Test
-    public void vuln01() {
-        System.out.println(poc_xml);
+    public void case01() {
+        System.out.println(sample_xml);
         XStream xstream = new XStream();
-        xstream.addPermission(AnyTypePermission.ANY); // Insecure configuration
-        xstream.fromXML(poc_xml); // Deserialize
+        xstream.addPermission(AnyTypePermission.ANY); 
+        xstream.fromXML(sample_xml); // Deserialize
     }
 
 
-    /**
-     * Security code. XStream version: 1.4.20
-     */
+    
     @Test
     public void sec01() {
-        System.out.println(poc_xml);
+        System.out.println(sample_xml);
         XStream xstream = new XStream();
-        xstream.fromXML(poc_xml); // Deserialize
+        xstream.fromXML(sample_xml); // Deserialize
     }
 
 }
