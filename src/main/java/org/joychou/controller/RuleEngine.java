@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/rules")
 public class RuleEngine {
 
-    @RequestMapping("/case1")
-    public String case1(HttpServletRequest req) throws Exception{
+    @RequestMapping("/execute")
+    public String execute(HttpServletRequest req) throws Exception{
         String express = WebUtils.getRequestBody(req);
         System.out.println(express);
         ExpressRunner runner = new ExpressRunner();
@@ -24,8 +24,8 @@ public class RuleEngine {
         return r.toString();
     }
 
-    @RequestMapping("/sec")
-    public String sec(HttpServletRequest req) throws Exception{
+    @RequestMapping("/safe")
+    public String executeSafe(HttpServletRequest req) throws Exception{
         String express = WebUtils.getRequestBody(req);
         System.out.println(express);
         ExpressRunner runner = new ExpressRunner();

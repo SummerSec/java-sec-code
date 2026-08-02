@@ -41,7 +41,7 @@ public class XStreamTest {
 
         // High version xstream needs set allowTypes
         xstream.allowTypes(new Class[]{User.class});
-        user = (User) xstream.fromXML(xml); // Deserialize
+        user = (User) xstream.fromXML(xml); // Parse XML
         System.out.println(user.getId() + ": " + user.getUsername());
     }
 
@@ -49,20 +49,20 @@ public class XStreamTest {
      * Command execute
      */
     @Test
-    public void case01() {
+    public void basic01() {
         System.out.println(sample_xml);
         XStream xstream = new XStream();
         xstream.addPermission(AnyTypePermission.ANY); 
-        xstream.fromXML(sample_xml); // Deserialize
+        xstream.fromXML(sample_xml); // Parse XML
     }
 
 
     
     @Test
-    public void sec01() {
+    public void safe01() {
         System.out.println(sample_xml);
         XStream xstream = new XStream();
-        xstream.fromXML(sample_xml); // Deserialize
+        xstream.fromXML(sample_xml); // Parse XML
     }
 
 }

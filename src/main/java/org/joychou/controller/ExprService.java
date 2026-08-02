@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExprService {
 
     
-    @RequestMapping("/expr/case1")
-    public String spel_case1(String value) {
+    @RequestMapping("/expr/evaluate")
+    public String evaluate(String value) {
         ExpressionParser parser = new SpelExpressionParser();
         return parser.parseExpression(value).getValue().toString();
     }
 
     
-    @RequestMapping("expr/case2")
-    public String spel_case2(String value) {
+    @RequestMapping("/expr/evaluateTyped")
+    public String evaluateTyped(String value) {
         StandardEvaluationContext context = new StandardEvaluationContext();
         SpelExpressionParser parser = new SpelExpressionParser();
         Expression expression = parser.parseExpression(value, new TemplateParserContext());
@@ -31,8 +31,8 @@ public class ExprService {
         return x.toString();   // response
     }
 
-    @RequestMapping("expr/sec")
-    public String spel_safe(String value) {
+    @RequestMapping("/expr/evaluateChecked")
+    public String evaluateChecked(String value) {
         SimpleEvaluationContext context = SimpleEvaluationContext.forReadOnlyDataBinding().build();
         SpelExpressionParser parser = new SpelExpressionParser();
         Expression expression = parser.parseExpression(value, new TemplateParserContext());

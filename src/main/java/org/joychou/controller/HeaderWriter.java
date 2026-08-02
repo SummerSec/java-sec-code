@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/header")
 public class HeaderWriter {
 
-    @RequestMapping("/safecode")
+    @RequestMapping("/write")
     @ResponseBody
-    public void crlf(HttpServletRequest request, HttpServletResponse response) {
+    public void writeHeader(HttpServletRequest request, HttpServletResponse response) {
         response.addHeader("test1", request.getParameter("test1"));
         response.setHeader("test2", request.getParameter("test2"));
         String author = request.getParameter("test3");

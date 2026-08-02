@@ -28,7 +28,7 @@ public class BaseCorsFilter extends CorsFilter {
         config.addAllowedMethod("POST");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/crossdomain/sec/corsFilter", config);
+        source.registerCorsConfiguration("/crossdomain/safe/corsFilter", config);
 
         return source;
     }

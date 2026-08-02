@@ -40,8 +40,8 @@ public class UserQuery {
 
 
     
-    @RequestMapping("/jdbc/case")
-    public String jdbc_query_case(@RequestParam("username") String username) {
+    @RequestMapping("/jdbc/query")
+    public String jdbcQuery(@RequestParam("username") String username) {
 
         StringBuilder result = new StringBuilder();
 
@@ -78,8 +78,8 @@ public class UserQuery {
 
 
     
-    @RequestMapping("/jdbc/sec")
-    public String jdbc_query_safe(@RequestParam("username") String username) {
+    @RequestMapping("/jdbc/queryPrepared")
+    public String jdbcQueryPrepared(@RequestParam("username") String username) {
 
         StringBuilder result = new StringBuilder();
         try {
@@ -118,8 +118,8 @@ public class UserQuery {
 
 
     
-    @RequestMapping("/jdbc/ps/case")
-    public String jdbc_ps_case(@RequestParam("username") String username) {
+    @RequestMapping("/jdbc/ps/query")
+    public String jdbcPsQuery(@RequestParam("username") String username) {
 
         StringBuilder result = new StringBuilder();
         try {
@@ -157,47 +157,47 @@ public class UserQuery {
 
 
     
-    @GetMapping("/mybatis/case01")
-    public List<User> mybatisCase01(@RequestParam("username") String username) {
-        return userMapper.findByUserNameCase01(username);
+    @GetMapping("/mybatis/listByName")
+    public List<User> mybatisListByName(@RequestParam("username") String username) {
+        return userMapper.findByUserNameRaw(username);
     }
 
     
-    @GetMapping("/mybatis/case02")
-    public List<User> mybatisCase02(@RequestParam("username") String username) {
-        return userMapper.findByUserNameCase02(username);
+    @GetMapping("/mybatis/listByNameXml")
+    public List<User> mybatisListByNameXml(@RequestParam("username") String username) {
+        return userMapper.findByUserNameXml(username);
     }
 
     
-    @GetMapping("/mybatis/orderby/case03")
-    public List<User> mybatisCase03(@RequestParam("sort") String sort) {
-        return userMapper.findByUserNameCase03(sort);
+    @GetMapping("/mybatis/orderby/list")
+    public List<User> mybatisOrderBy(@RequestParam("sort") String sort) {
+        return userMapper.findByUserNameOrder(sort);
     }
 
 
     
-    @GetMapping("/mybatis/sec01")
-    public User mybatisSec01(@RequestParam("username") String username) {
+    @GetMapping("/mybatis/getByName")
+    public User mybatisGetByName(@RequestParam("username") String username) {
         return userMapper.findByUserName(username);
     }
 
     
-    @GetMapping("/mybatis/sec02")
-    public User mybatisSec02(@RequestParam("id") Integer id) {
+    @GetMapping("/mybatis/getById")
+    public User mybatisGetById(@RequestParam("id") Integer id) {
         return userMapper.findById(id);
     }
 
 
     
-    @GetMapping("/mybatis/sec03")
-    public User mybatisSec03() {
+    @GetMapping("/mybatis/orderByName")
+    public User mybatisOrderByName() {
         return userMapper.OrderByUsername();
     }
 
     
-    @GetMapping("/mybatis/orderby/sec04")
-    public List<User> mybatisOrderBySec04(@RequestParam("sort") String sort) {
-        return userMapper.findByUserNameCase03(SecurityUtil.sqlFilter(sort));
+    @GetMapping("/mybatis/orderby/listFiltered")
+    public List<User> mybatisOrderByFiltered(@RequestParam("sort") String sort) {
+        return userMapper.findByUserNameOrder(SecurityUtil.sqlFilter(sort));
     }
 
 }

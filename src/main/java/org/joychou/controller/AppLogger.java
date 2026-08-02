@@ -18,7 +18,7 @@ public class AppLogger {
     }
 
     public static void main(String[] args) {
-        String message = "${jndi:ldap://127.0.0.1:1389/0iun75}";
+        String message = "application started";
         logger.error(message);
     }
 

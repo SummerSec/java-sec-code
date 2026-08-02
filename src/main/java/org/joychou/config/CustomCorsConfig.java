@@ -22,7 +22,7 @@ public class CustomCorsConfig extends WebMvcRegistrationsAdapter {
             public void addCorsMappings(CorsRegistry registry) {
                 // 为了支持一级域名，重写了checkOrigin
                 //String[] allowOrigins = {"joychou.org", "http://test.joychou.me"};
-                registry.addMapping("/crossdomain/sec/webMvcConfigurer") // /**表示所有路由path
+                registry.addMapping("/crossdomain/safe/webMvcConfigurer") // /**表示所有路由path
                         //.allowedOrigins(allowOrigins)
                         .allowedMethods("GET", "POST")
                         .allowCredentials(true);

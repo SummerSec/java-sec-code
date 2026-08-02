@@ -27,7 +27,7 @@ public class RuleEngineTest {
     }
 
     /**
-     * Test case of /rules/case1. Use URLClassLoader to load remote class.
+     * Test case of /rules/execute. Use URLClassLoader to load remote class.
      */
     @Test
     public void case1() throws Exception {
@@ -42,7 +42,7 @@ public class RuleEngineTest {
      * fix method by using class and method whitelist.
      */
     @Test
-    public void sec01() throws Exception {
+    public void safe01() throws Exception {
         System.out.println(sample);
         ExpressRunner runner = new ExpressRunner();
         QLExpressRunStrategy.setForbidInvokeSecurityRiskMethods(true);
@@ -56,7 +56,7 @@ public class RuleEngineTest {
 
     
     @Test
-    public void sec02() throws Exception {
+    public void safe02() throws Exception {
         System.out.println(sample);
         ExpressRunner runner = new ExpressRunner();
         QLExpressRunStrategy.setForbidInvokeSecurityRiskMethods(true);
@@ -70,7 +70,7 @@ public class RuleEngineTest {
      * <p>Fix method by using sandbox. </p>
      */
     @Test
-    public void sec03() throws Exception {
+    public void safe03() throws Exception {
         System.out.println(sample);
         ExpressRunner runner = new ExpressRunner();
         QLExpressRunStrategy.setSandBoxMode(true);

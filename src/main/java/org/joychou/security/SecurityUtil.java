@@ -134,7 +134,7 @@ public class SecurityUtil {
     }
 
     /**
-     * Check ssrf by hook socket. Start socket hook.
+     * Start URL guard by hooking socket connections.
      *
      * @author liergou @ 2020-04-04 02:15
      */

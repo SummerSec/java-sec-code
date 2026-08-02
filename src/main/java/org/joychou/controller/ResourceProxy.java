@@ -30,13 +30,13 @@ public class ResourceProxy {
     private HttpService httpService;
 
     
-    @RequestMapping(value = "/urlConnection/case", method = {RequestMethod.POST, RequestMethod.GET})
-    public String urlConnectionCase(String url) {
+    @RequestMapping(value = "/urlConnection/fetch", method = {RequestMethod.POST, RequestMethod.GET})
+    public String urlConnectionFetch(String url) {
         return HttpUtils.URLConnection(url);
     }
 
 
-    @GetMapping("/urlConnection/sec")
+    @GetMapping("/urlConnection/fetchGuarded")
     public String urlConnectionSafe(String url) {
 
         // Decline not http/https protocol
@@ -60,7 +60,7 @@ public class ResourceProxy {
      * The default setting of followRedirects is true.
      * UserAgent is Java/1.8.0_102.
      */
-    @GetMapping("/HttpURLConnection/sec")
+    @GetMapping("/HttpURLConnection/fetchGuarded")
     public String httpURLConnection(@RequestParam String url) {
         try {
             SecurityUtil.startUrlHook();
@@ -73,13 +73,13 @@ public class ResourceProxy {
     }
 
 
-    @GetMapping("/HttpURLConnection/case")
-    public String httpurlConnectionCase(@RequestParam String url) {
+    @GetMapping("/HttpURLConnection/fetch")
+    public String httpurlConnectionFetch(@RequestParam String url) {
         return HttpUtils.HttpURLConnection(url);
     }
 
     
-    @GetMapping("/request/sec")
+    @GetMapping("/request/fetchGuarded")
     public String request(@RequestParam String url) {
         try {
             SecurityUtil.startUrlHook();
@@ -128,7 +128,7 @@ public class ResourceProxy {
      * The default setting of followRedirects is true.
      * UserAgent is Java/1.8.0_102.
      */
-    @GetMapping("/ImageIO/sec")
+    @GetMapping("/ImageIO/fetchGuarded")
     public String ImageIO(@RequestParam String url) {
         try {
             SecurityUtil.startUrlHook();
@@ -139,11 +139,11 @@ public class ResourceProxy {
             SecurityUtil.stopUrlHook();
         }
 
-        return "ImageIO proxy test";
+        return "ImageIO proxy ok";
     }
 
 
-    @GetMapping("/okhttp/sec")
+    @GetMapping("/okhttp/fetchGuarded")
     public String okhttp(@RequestParam String url) {
 
         try {
@@ -158,7 +158,7 @@ public class ResourceProxy {
     }
 
     
-    @GetMapping("/httpclient/sec")
+    @GetMapping("/httpclient/fetchGuarded")
     public String HttpClient(@RequestParam String url) {
 
         try {
@@ -174,7 +174,7 @@ public class ResourceProxy {
 
 
     
-    @GetMapping("/commonsHttpClient/sec")
+    @GetMapping("/commonsHttpClient/fetchGuarded")
     public String commonsHttpClient(@RequestParam String url) {
 
         try {
@@ -189,7 +189,7 @@ public class ResourceProxy {
     }
 
     
-    @GetMapping("/Jsoup/sec")
+    @GetMapping("/Jsoup/fetchGuarded")
     public String Jsoup(@RequestParam String url) {
 
         try {
@@ -205,7 +205,7 @@ public class ResourceProxy {
 
 
     
-    @GetMapping("/IOUtils/sec")
+    @GetMapping("/IOUtils/fetchGuarded")
     public String IOUtils(String url) {
         try {
             SecurityUtil.startUrlHook();
@@ -216,7 +216,7 @@ public class ResourceProxy {
             SecurityUtil.stopUrlHook();
         }
 
-        return "IOUtils proxy test";
+        return "IOUtils proxy ok";
     }
 
 
@@ -224,7 +224,7 @@ public class ResourceProxy {
      * The default setting of followRedirects is true.
      * UserAgent is <code>Apache-HttpAsyncClient/4.1.4 (Java/1.8.0_102)</code>.
      */
-    @GetMapping("/HttpSyncClients/case")
+    @GetMapping("/HttpSyncClients/fetch")
     public String HttpSyncClients(@RequestParam("url") String url) {
         return HttpUtils.HttpAsyncClients(url);
     }
@@ -234,9 +234,9 @@ public class ResourceProxy {
      * Only support HTTP protocol. <br>
      * GET HttpMethod follow redirects by default, other HttpMethods do not follow redirects. <br>
      * User-Agent is Java/1.8.0_102. <br>
-     * <a href="http://127.0.0.1:8080/proxy/restTemplate/case1?url=http://www.baidu.com">http://127.0.0.1:8080/proxy/restTemplate/case1?url=http://www.baidu.com</a>
+     * <a href="http://127.0.0.1:8080/proxy/restTemplate/noRedirect?url=http://www.baidu.com">http://127.0.0.1:8080/proxy/restTemplate/noRedirect?url=http://www.baidu.com</a>
      */
-    @GetMapping("/restTemplate/case1")
+    @GetMapping("/restTemplate/noRedirect")
     public String RestTemplateUrlBanRedirects(String url){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -244,7 +244,7 @@ public class ResourceProxy {
     }
 
 
-    @GetMapping("/restTemplate/case2")
+    @GetMapping("/restTemplate/followRedirect")
     public String RestTemplateUrl(String url){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -253,18 +253,18 @@ public class ResourceProxy {
 
 
     
-    @GetMapping("/hutool/case")
+    @GetMapping("/hutool/get")
     public String hutoolHttp(String url){
         return HttpUtil.get(url);
     }
 
 
     
-    @GetMapping("/dnsrebind/case")
+    @GetMapping("/dnsrebind/check")
     public String DnsRebind(String url) {
         java.security.Security.setProperty("networkaddress.cache.negative.ttl" , "0");
         if (!SecurityUtil.checkUrlWithoutRedirect(url)) {
-            return "Dangerous url";
+            return "URL not allowed";
         }
         return HttpUtil.get(url);
     }

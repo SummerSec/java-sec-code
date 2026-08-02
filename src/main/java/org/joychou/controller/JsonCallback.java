@@ -24,7 +24,6 @@ import java.security.Principal;
 
 /**
  * @author JoyChou (joychou@joychou.org) @ 2018.10.24
- * https://github.com/JoyChou93/java-sec-code/wiki/JSONP
  */
 
 @Slf4j
@@ -37,14 +36,14 @@ public class JsonCallback {
     @Autowired
     CookieCsrfTokenRepository cookieCsrfTokenRepository;
     
-    @RequestMapping(value = "/case/referer", produces = "application/javascript")
+    @RequestMapping(value = "/basic/referer", produces = "application/javascript")
     public String referer(HttpServletRequest request) {
         String callback = request.getParameter(this.callback);
         return WebUtils.json2Jsonp(callback, LoginUtils.getUserInfo2JsonStr(request));
     }
 
     
-    @RequestMapping(value = "/case/emptyReferer", produces = "application/javascript")
+    @RequestMapping(value = "/basic/emptyReferer", produces = "application/javascript")
     public String emptyReferer(HttpServletRequest request) {
         String referer = request.getHeader("referer");
 
@@ -63,7 +62,7 @@ public class JsonCallback {
 
 
     
-    @RequestMapping(value = "/case/mappingJackson2JsonView", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/basic/mappingJackson2JsonView", produces = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView mappingJackson2JsonView(HttpServletRequest req) {
         ModelAndView view = new ModelAndView(new MappingJackson2JsonView());
         Principal principal = req.getUserPrincipal();
@@ -73,8 +72,8 @@ public class JsonCallback {
 
 
     
-    @RequestMapping(value = "/sec/checkReferer", produces = "application/javascript")
-    public String safecode(HttpServletRequest request) {
+    @RequestMapping(value = "/safe/checkReferer", produces = "application/javascript")
+    public String checkReferer(HttpServletRequest request) {
         String referer = request.getHeader("referer");
 
         if (SecurityUtil.checkURL(referer) == null) {

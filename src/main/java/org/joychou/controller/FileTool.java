@@ -39,7 +39,7 @@ public class FileTool {
         return WebUtils.convertStreamToString(process.getInputStream());
     }
 
-    @GetMapping("/tools/file/sec")
+    @GetMapping("/tools/file/listSafe")
     public String listSafe(String filepath) throws IOException {
         String filterFilePath = SecurityUtil.cmdFilter(filepath);
         if (null == filterFilePath) {

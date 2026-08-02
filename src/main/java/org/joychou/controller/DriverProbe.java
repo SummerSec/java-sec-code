@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.DriverManager;
 
 /**
- * Jdbc Attack @2023.04
+ * JDBC connection probe @2023.04
  */
 @Slf4j
 @RestController

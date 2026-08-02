@@ -19,17 +19,17 @@ public class PathAccess {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping(value = "/exclued/case")
-    public String exclued(HttpServletRequest request) {
+    @GetMapping(value = "/exclude/match")
+    public String matchExclude(HttpServletRequest request) {
 
-        String[] excluedPath = {"/css/**", "/js/**"};
-        String uri = request.getRequestURI(); // Security: request.getServletPath()
+        String[] excludePath = {"/css/**", "/js/**"};
+        String uri = request.getRequestURI(); // prefer request.getServletPath() when needed
         PathMatcher matcher = new AntPathMatcher();
 
         logger.info("getRequestURI: " + uri);
         logger.info("getServletPath: " + request.getServletPath());
 
-        for (String path : excluedPath) {
+        for (String path : excludePath) {
             if (matcher.match(path, uri)) {
                 return "ok";
             }

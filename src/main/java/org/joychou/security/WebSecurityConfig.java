@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // spring security login settings
         http.authorizeRequests()
                 .antMatchers(noNeedLoginUrl).permitAll() // no need to login page
-                .regexMatchers("/black_path.*").denyAll()    // 如果正则匹配到/black_path，则forbidden
+                .regexMatchers("/restricted_path.*").denyAll()    // 如果正则匹配到/restricted_path，则forbidden
                 .anyRequest().authenticated().and() // any request authenticated except above static resources
                 .formLogin().loginPage("/login").permitAll() // permit all to access /login page
                 .successHandler(new LoginSuccessHandler())
@@ -101,7 +101,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowCredentials(true);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/crossdomain/sec/httpCors", configuration); // ant style
+        source.registerCorsConfiguration("/crossdomain/safe/httpCors", configuration); // ant style
         return source;
     }
 

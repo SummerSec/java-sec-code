@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class DisableSpringSecurityFirewall implements HttpFirewall {
+public class PassThroughHttpFirewall implements HttpFirewall {
 
     @Override
     public FirewalledRequest getFirewalledRequest(HttpServletRequest request) throws RequestRejectedException {

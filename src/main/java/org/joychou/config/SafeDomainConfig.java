@@ -17,7 +17,7 @@ public class SafeDomainConfig {
     @Bean // @Bean代表将safeDomainParserf方法返回的对象装配到SpringIOC容器中
     public SafeDomainParser safeDomainParser() {
         try {
-            LOGGER.info("SafeDomainParser bean inject successfully!!!");
+            LOGGER.info("SafeDomainParser bean loaded successfully.");
             return new SafeDomainParser();
         } catch (Exception e) {
             LOGGER.error("SafeDomainParser is null " + e.getMessage(), e);

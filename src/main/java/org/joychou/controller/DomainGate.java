@@ -21,10 +21,10 @@ public class DomainGate {
 
 
     private String domainwhitelist[] = {"joychou.org", "joychou.com"};
-    private static final Logger logger = LoggerFactory.getLogger(URLWhiteList.class);
+    private static final Logger logger = LoggerFactory.getLogger(DomainGate.class);
 
     
-    @GetMapping("/case/endsWith")
+    @GetMapping("/basic/endsWith")
     public String endsWith(@RequestParam("url") String url) {
 
         String host = SecurityUtil.gethost(url);
@@ -39,7 +39,7 @@ public class DomainGate {
 
 
     
-    @GetMapping("/case/contains")
+    @GetMapping("/basic/contains")
     public String contains(@RequestParam("url") String url) {
 
         String host = SecurityUtil.gethost(url);
@@ -54,7 +54,7 @@ public class DomainGate {
 
 
     
-    @GetMapping("/case/regex")
+    @GetMapping("/basic/regex")
     public String regex(@RequestParam("url") String url) {
 
         String host = SecurityUtil.gethost(url);
@@ -70,7 +70,7 @@ public class DomainGate {
 
 
     
-    @GetMapping("/case/url_parse")
+    @GetMapping("/basic/urlParse")
     public void url_parse(String url, HttpServletResponse res) throws IOException {
 
         logger.info("url:  " + url);
@@ -94,8 +94,8 @@ public class DomainGate {
 
 
     
-    @GetMapping("/sec")
-    public String sec(@RequestParam("url") String url) {
+    @GetMapping("/safe")
+    public String checkWhitelist(@RequestParam("url") String url) {
 
         String whiteDomainlists[] = {"joychou.org", "joychou.com", "test.joychou.me"};
 
@@ -118,8 +118,8 @@ public class DomainGate {
 
 
     
-    @GetMapping("/sec/array_indexOf")
-    public String sec_array_indexOf(@RequestParam("url") String url) {
+    @GetMapping("/safe/arrayIndexOf")
+    public String checkArrayIndexOf(@RequestParam("url") String url) {
 
         // Define muti-level host whitelist.
         ArrayList<String> whiteDomainlists = new ArrayList<>();

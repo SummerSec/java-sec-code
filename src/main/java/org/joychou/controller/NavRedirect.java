@@ -60,9 +60,9 @@ public class NavRedirect {
 
 
     
-    @RequestMapping("/sendRedirect/sec")
+    @RequestMapping("/sendRedirect/checked")
     @ResponseBody
-    public void sendRedirect_seccode(HttpServletRequest request, HttpServletResponse response)
+    public void sendRedirectChecked(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String url = request.getParameter("url");
         if (SecurityUtil.checkURL(url) == null) {

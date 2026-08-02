@@ -35,8 +35,8 @@ public class UploadApi {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private static String randomFilePath = "";
 
-    // uplaod any file
-    @GetMapping("/any")
+    // upload form page
+    @GetMapping("/form")
     public String index() {
         return "upload"; // return upload.html page
     }
@@ -105,7 +105,7 @@ public class UploadApi {
         if (!suffixFlag) {
             logger.error("[-] Suffix error: " + Suffix);
             deleteFile(filePath);
-            return "Upload failed. Illeagl picture.";
+            return "Upload failed. Illegal picture.";
         }
 
 
@@ -119,11 +119,11 @@ public class UploadApi {
                 "application/xml"
         };
         for (String blackMimeType : mimeTypeBlackList) {
-            // 用contains是为了防止text/html;charset=UTF-8绕过
+            // contains 匹配，兼容 text/html;charset=UTF-8 这类带参数的 MIME
             if (SecurityUtil.replaceSpecialStr(mimeType).toLowerCase().contains(blackMimeType)) {
                 logger.error("[-] Mime type error: " + mimeType);
                 deleteFile(filePath);
-                return "Upload failed. Illeagl picture.";
+                return "Upload failed. Illegal picture.";
             }
         }
 
@@ -134,7 +134,7 @@ public class UploadApi {
         if (!isImageFlag) {
             logger.error("[-] File is not Image");
             deleteFile(filePath);
-            return "Upload failed. Illeagl picture.";
+            return "Upload failed. Illegal picture.";
         }
 
 

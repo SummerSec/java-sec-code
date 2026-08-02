@@ -26,13 +26,13 @@ public class ObjectStore {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     
-    @RequestMapping("/rememberMe/case")
-    public String rememberMeVul(HttpServletRequest request)
+    @RequestMapping("/rememberMe/restore")
+    public String restoreRememberMe(HttpServletRequest request)
             throws IOException, ClassNotFoundException {
 
         Cookie cookie = getCookie(request, Constants.REMEMBER_ME_COOKIE);
         if (null == cookie) {
-            return "No rememberMe cookie. Right?";
+            return "No rememberMe cookie.";
         }
 
         String rememberMe = cookie.getValue();
@@ -43,18 +43,18 @@ public class ObjectStore {
         in.readObject();
         in.close();
 
-        return "Are u ok?";
+        return "OK";
     }
 
     
-    @RequestMapping("/rememberMe/security")
-    public String rememberMeBlackClassCheck(HttpServletRequest request)
+    @RequestMapping("/rememberMe/restoreChecked")
+    public String restoreRememberMeChecked(HttpServletRequest request)
             throws IOException, ClassNotFoundException {
 
         Cookie cookie = getCookie(request, Constants.REMEMBER_ME_COOKIE);
 
         if (null == cookie) {
-            return "No rememberMe cookie. Right?";
+            return "No rememberMe cookie.";
         }
         String rememberMe = cookie.getValue();
         byte[] decoded = Base64.getDecoder().decode(rememberMe);
@@ -70,11 +70,11 @@ public class ObjectStore {
             return e.toString();
         }
 
-        return "I'm very OK.";
+        return "OK";
     }
 
     @RequestMapping("/jackson")
-    public void Jackson(String content) {
+    public void parseJackson(String content) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
         try {

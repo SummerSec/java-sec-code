@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 
 
-@WebFilter(filterName = "OriginFilter", urlPatterns = "/crossdomain/sec/originFilter")
+@WebFilter(filterName = "OriginFilter", urlPatterns = "/crossdomain/safe/originFilter")
 public class OriginFilter implements Filter {
 
     @Override

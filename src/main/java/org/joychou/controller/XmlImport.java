@@ -41,8 +41,8 @@ public class XmlImport {
     private static final Logger logger = LoggerFactory.getLogger(XmlImport.class);
     private static final String EXCEPT = "xml error";
 
-    @PostMapping("/xmlReader/case")
-    public String xmlReaderCase(HttpServletRequest request) {
+    @PostMapping("/xmlReader/parse")
+    public String xmlReaderParse(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -56,8 +56,8 @@ public class XmlImport {
     }
 
 
-    @RequestMapping(value = "/xmlReader/sec", method = RequestMethod.POST)
-    public String xmlReaderSec(HttpServletRequest request) {
+    @RequestMapping(value = "/xmlReader/parseSafe", method = RequestMethod.POST)
+    public String xmlReaderParseSafe(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -77,8 +77,8 @@ public class XmlImport {
     }
 
 
-    @RequestMapping(value = "/SAXBuilder/case", method = RequestMethod.POST)
-    public String SAXBuilderCase(HttpServletRequest request) {
+    @RequestMapping(value = "/SAXBuilder/parse", method = RequestMethod.POST)
+    public String SAXBuilderParse(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -93,8 +93,8 @@ public class XmlImport {
         }
     }
 
-    @RequestMapping(value = "/SAXBuilder/sec", method = RequestMethod.POST)
-    public String SAXBuilderSec(HttpServletRequest request) {
+    @RequestMapping(value = "/SAXBuilder/parseSafe", method = RequestMethod.POST)
+    public String SAXBuilderParseSafe(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -114,8 +114,8 @@ public class XmlImport {
         return "ok";
     }
 
-    @RequestMapping(value = "/SAXReader/case", method = RequestMethod.POST)
-    public String SAXReaderCase(HttpServletRequest request) {
+    @RequestMapping(value = "/SAXReader/parse", method = RequestMethod.POST)
+    public String SAXReaderParse(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -132,8 +132,8 @@ public class XmlImport {
         return "ok";
     }
 
-    @RequestMapping(value = "/SAXReader/sec", method = RequestMethod.POST)
-    public String SAXReaderSec(HttpServletRequest request) {
+    @RequestMapping(value = "/SAXReader/parseSafe", method = RequestMethod.POST)
+    public String SAXReaderParseSafe(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -151,8 +151,8 @@ public class XmlImport {
         return "ok";
     }
 
-    @RequestMapping(value = "/SAXParser/case", method = RequestMethod.POST)
-    public String SAXParserCase(HttpServletRequest request) {
+    @RequestMapping(value = "/SAXParser/parse", method = RequestMethod.POST)
+    public String SAXParserParse(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -169,8 +169,8 @@ public class XmlImport {
     }
 
 
-    @RequestMapping(value = "/SAXParser/sec", method = RequestMethod.POST)
-    public String SAXParserSec(HttpServletRequest request) {
+    @RequestMapping(value = "/SAXParser/parseSafe", method = RequestMethod.POST)
+    public String SAXParserParseSafe(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -189,8 +189,8 @@ public class XmlImport {
     }
 
 
-    @RequestMapping(value = "/Digester/case", method = RequestMethod.POST)
-    public String DigesterCase(HttpServletRequest request) {
+    @RequestMapping(value = "/Digester/parse", method = RequestMethod.POST)
+    public String DigesterParse(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -204,8 +204,8 @@ public class XmlImport {
         return "ok";
     }
 
-    @RequestMapping(value = "/Digester/sec", method = RequestMethod.POST)
-    public String DigesterSec(HttpServletRequest request) {
+    @RequestMapping(value = "/Digester/parseSafe", method = RequestMethod.POST)
+    public String DigesterParseSafe(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -227,8 +227,8 @@ public class XmlImport {
     /**
      * Use request.getInputStream to support UTF16 encoding.
      */
-    @RequestMapping(value = "/DocumentBuilder/case", method = RequestMethod.POST)
-    public String DocumentBuilderCase(HttpServletRequest request) {
+    @RequestMapping(value = "/DocumentBuilder/parse", method = RequestMethod.POST)
+    public String DocumentBuilderParse(HttpServletRequest request) {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -254,8 +254,8 @@ public class XmlImport {
         }
     }
 
-    @RequestMapping(value = "/DocumentBuilder/Sec", method = RequestMethod.POST)
-    public String DocumentBuilderSec(HttpServletRequest request) {
+    @RequestMapping(value = "/DocumentBuilder/parseSafe", method = RequestMethod.POST)
+    public String DocumentBuilderParseSafe(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -277,8 +277,8 @@ public class XmlImport {
     }
 
 
-    @RequestMapping(value = "/DocumentBuilder/xinclude/case", method = RequestMethod.POST)
-    public String DocumentBuilderXincludeCase(HttpServletRequest request) {
+    @RequestMapping(value = "/DocumentBuilder/xinclude/parse", method = RequestMethod.POST)
+    public String DocumentBuilderXincludeParse(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -303,8 +303,8 @@ public class XmlImport {
     }
 
 
-    @RequestMapping(value = "/DocumentBuilder/xinclude/sec", method = RequestMethod.POST)
-    public String DocumentBuilderXincludeSec(HttpServletRequest request) {
+    @RequestMapping(value = "/DocumentBuilder/xinclude/parseSafe", method = RequestMethod.POST)
+    public String DocumentBuilderXincludeParseSafe(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -333,8 +333,8 @@ public class XmlImport {
     }
 
 
-    @PostMapping("/XMLReader/case")
-    public String XMLReaderCase(HttpServletRequest request) {
+    @PostMapping("/XMLReader/parse")
+    public String XMLReaderParse(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -353,8 +353,8 @@ public class XmlImport {
     }
 
 
-    @PostMapping("/XMLReader/sec")
-    public String XMLReaderSec(HttpServletRequest request) {
+    @PostMapping("/XMLReader/parseSafe")
+    public String XMLReaderParseSafe(HttpServletRequest request) {
         try {
             String body = WebUtils.getRequestBody(request);
             logger.info(body);
@@ -376,7 +376,7 @@ public class XmlImport {
 
 
     
-    @PostMapping("/DocumentHelper/case")
+    @PostMapping("/DocumentHelper/parse")
     public String DocumentHelper(HttpServletRequest req) {
         try {
             String body = WebUtils.getRequestBody(req);
@@ -404,7 +404,7 @@ public class XmlImport {
     }
 
         
-        @PostMapping(value = "/xmlbeam/case")
+        @PostMapping(value = "/xmlbeam/parse")
         HttpEntity<String> post(@RequestBody UserPayload user) {
             try {
                 logger.info(user.toString());

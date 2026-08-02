@@ -14,7 +14,7 @@ import static org.springframework.web.util.WebUtils.getCookie;
 
 
 /**
- * 某些应用获取用户身份信息可能会直接从cookie中直接获取明文的nick或者id，导致越权问题。
+ * 从 Cookie 中读取用户昵称等业务标识信息。
  */
 @RestController
 @RequestMapping("/cookie")
@@ -22,15 +22,15 @@ public class CookieApi {
 
     private static String NICK = "nick";
 
-    @GetMapping(value = "/case01")
-    public String case01(HttpServletRequest req) {
+    @GetMapping(value = "/byWebUtils")
+    public String byWebUtils(HttpServletRequest req) {
         String nick = WebUtils.getCookieValueByName(req, NICK); // key code
         return "Cookie nick: " + nick;
     }
 
 
-    @GetMapping(value = "/case02")
-    public String case02(HttpServletRequest req) {
+    @GetMapping(value = "/bySpringUtils")
+    public String bySpringUtils(HttpServletRequest req) {
         String nick = null;
         Cookie[] cookie = req.getCookies();
 
@@ -42,8 +42,8 @@ public class CookieApi {
     }
 
 
-    @GetMapping(value = "/case03")
-    public String case03(HttpServletRequest req) {
+    @GetMapping(value = "/byEquals")
+    public String byEquals(HttpServletRequest req) {
         String nick = null;
         Cookie cookies[] = req.getCookies();
         if (cookies != null) {
@@ -58,8 +58,8 @@ public class CookieApi {
     }
 
 
-    @GetMapping(value = "/case04")
-    public String case04(HttpServletRequest req) {
+    @GetMapping(value = "/byEqualsIgnoreCase")
+    public String byEqualsIgnoreCase(HttpServletRequest req) {
         String nick = null;
         Cookie cookies[] = req.getCookies();
         if (cookies != null) {
@@ -73,14 +73,14 @@ public class CookieApi {
     }
 
 
-    @GetMapping(value = "/case05")
-    public String case05(@CookieValue("nick") String nick) {
+    @GetMapping(value = "/byAnnotation")
+    public String byAnnotation(@CookieValue("nick") String nick) {
         return "Cookie nick: " + nick;
     }
 
 
-    @GetMapping(value = "/case06")
-    public String case06(@CookieValue(value = "nick") String nick) {
+    @GetMapping(value = "/byAnnotationValue")
+    public String byAnnotationValue(@CookieValue(value = "nick") String nick) {
         return "Cookie nick: " + nick;
     }
 

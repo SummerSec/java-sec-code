@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 public class ContentView {
 
     
-    @RequestMapping("/reflect")
+    @RequestMapping("/echo")
     @ResponseBody
-    public static String reflect(String text) {
+    public static String echo(String text) {
         return text;
     }
 
@@ -41,9 +41,9 @@ public class ContentView {
     }
 
     
-    @RequestMapping("/safe")
+    @RequestMapping("/echoEncoded")
     @ResponseBody
-    public static String safe(String text) {
+    public static String echoEncoded(String text) {
         return encode(text);
     }
 

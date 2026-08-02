@@ -19,16 +19,16 @@ public class AssetStore {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     
-    @GetMapping("/assets/case")
+    @GetMapping("/assets/get")
     public String getImage(String filepath) throws IOException {
         return getImgBase64(filepath);
     }
 
-    @GetMapping("/assets/sec")
-    public String getImageSec(String filepath) throws IOException {
+    @GetMapping("/assets/getFiltered")
+    public String getImageFiltered(String filepath) throws IOException {
         if (SecurityUtil.pathFilter(filepath) == null) {
             logger.info("Illegal file path: " + filepath);
-            return "Bad boy. Illegal file path.";
+            return "Illegal file path.";
         }
         return getImgBase64(filepath);
     }

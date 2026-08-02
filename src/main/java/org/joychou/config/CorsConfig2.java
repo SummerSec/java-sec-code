@@ -21,7 +21,7 @@
 //        config.addAllowedHeader("*");
 //        config.addAllowedMethod("GET");
 //        config.addAllowedMethod("POST");
-//        source.registerCorsConfiguration("/crossdomain/getCsrfToken/sec_03", config);
+//        source.registerCorsConfiguration("/crossdomain/safe/originFilter", config);
 //        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 //        bean.setOrder(0);
 //        return bean;
