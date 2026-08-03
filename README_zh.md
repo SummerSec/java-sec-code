@@ -4,6 +4,8 @@
 
 [English](./README.md)
 
+[最近变更](./CHANGELOG.md)
+
 ## 功能概览
 
 - Spring Security 表单登录与记住我
@@ -33,7 +35,7 @@
 
 - JDK 8+
 - Maven 3.x
-- MySQL 5.7 / 8.x（使用自带数据库的 Docker 镜像时可省略）
+- 本地运行需要 MySQL 5.7 / 8.x（Docker Compose 会同时启动应用和 MySQL 服务）
 
 本地建库示例：
 
@@ -50,6 +52,8 @@ spring.datasource.password=woshishujukumima
 ```
 
 启动前请按实际环境修改账号密码。
+
+仓库内的建表脚本为 `src/main/resources/create_db.sql`，其中 `USE` 语句仍指向 `java_sec_code`。使用上面的默认数据源时，请先将该数据库名改为 `joychou_platform`（或改为你配置的库名）。脚本会插入 `admin` 和 `joychou` 两条记录。
 
 ## 快速启动
 
@@ -81,6 +85,8 @@ java -jar target/joychou-platform-1.0.0.jar
 
 默认访问地址：`http://localhost:8080`
 
+Docker Compose 将应用映射到 `8080`，将 JDWP 调试端口映射到 `8000`，并将 MySQL 服务映射到 `3306`。
+
 ## 登录
 
 | 用户名 | 密码 |
@@ -100,6 +106,7 @@ Remember-me 会在 Tomcat 默认 30 分钟空闲超时之外延长会话（默�
 
 ```text
 .
+├── CHANGELOG.md
 ├── docker-compose.yml
 ├── pom.xml
 └── src/main
@@ -115,6 +122,7 @@ Remember-me 会在 Tomcat 默认 30 分钟空闲超时之外延长会话（默�
     │   └── util/
     └── resources
         ├── application.properties
+        ├── create_db.sql
         ├── mapper/
         ├── templates/
         └── url/             # 域名白名单配置
@@ -149,6 +157,8 @@ Remember-me 会在 Tomcat 默认 30 分钟空闲超时之外延长会话（默�
 | 工具 | `/tools/file` | 主机 / 路径工具接口 |
 
 完整路由以 `src/main/java/org/joychou/controller/` 下各 Controller 为准。
+
+`master` 分支包含面向产品的应用代码、构建/部署文件和文档；评估专用资源不在此分支中。
 
 ## 配置说明
 

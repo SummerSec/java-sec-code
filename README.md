@@ -4,6 +4,8 @@ Internal Spring Boot web platform used for account login, content APIs, file/doc
 
 [中文文档](./README_zh.md)
 
+[Recent changes](./CHANGELOG.md)
+
 ## Features
 
 - Spring Security form login with remember-me
@@ -33,7 +35,7 @@ Internal Spring Boot web platform used for account login, content APIs, file/doc
 
 - JDK 8+
 - Maven 3.x
-- MySQL 5.7 / 8.x (not required when using Docker images that bundle DB)
+- MySQL 5.7 / 8.x for local runs (Docker Compose starts the application and MySQL services)
 
 Create database (local run):
 
@@ -50,6 +52,8 @@ spring.datasource.password=woshishujukumima
 ```
 
 Adjust credentials for your environment before starting the app.
+
+The checked-in schema bootstrap is `src/main/resources/create_db.sql`. Its `USE` statement still targets `java_sec_code`; change that database name to `joychou_platform` (or to your configured schema) before running it with the default datasource above. The script inserts `admin` and `joychou` rows.
 
 ## Quick start
 
@@ -81,6 +85,8 @@ java -jar target/joychou-platform-1.0.0.jar
 
 Application base URL: `http://localhost:8080`
 
+Docker Compose publishes the application on `8080`, the JDWP debug port on `8000`, and the MySQL service on `3306`.
+
 ## Login
 
 | Username | Password |
@@ -100,6 +106,7 @@ Remember-me cookie extends the session beyond Tomcat’s default 30-minute idle 
 
 ```text
 .
+├── CHANGELOG.md
 ├── docker-compose.yml
 ├── pom.xml
 └── src/main
@@ -115,6 +122,7 @@ Remember-me cookie extends the session beyond Tomcat’s default 30-minute idle 
     │   └── util/
     └── resources
         ├── application.properties
+        ├── create_db.sql
         ├── mapper/
         ├── templates/
         └── url/             # domain allowlists
@@ -149,6 +157,8 @@ Remember-me cookie extends the session beyond Tomcat’s default 30-minute idle 
 | Tools | `/tools/file` | Host / path utility endpoints |
 
 Exact routes are defined on each controller under `src/main/java/org/joychou/controller/`.
+
+The `master` branch contains the product-facing application, build/deployment files, and documentation. Evaluation-only assets are not part of this branch.
 
 ## Configuration notes
 
